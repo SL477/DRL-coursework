@@ -1,4 +1,5 @@
-\documentclass[a4pape, 11pt, english]{article} %
+\documentclass[a4pape, 11pt, english]{article}
+\usepackage[margin=1in,footskip=0.25in]{geometry}
 \usepackage{natbib}
 
 %\usepackage{cite}
@@ -20,8 +21,11 @@
 TODO: Abstract
 \end{abstract}
 
-\section{Main problem}
+\section{Main problem: Starship Saboteur}
 \subsection{Define an environment and the problem to be solved}
+Here our agent will be teleported into a random free location on a spaceship (i.e. not blocked by any obstacles). Our agent will need to disable the spaceship's reactor by standing upon a certain location. Avoid the traps (which deal damage when stepped on) and navigate through the ship. Then go to the random beam-out location (which will also be an empty square) and escape before the max allowed turns, after that the ship will open the airlocks to immediately kill the agent.
+
+The agent will be able to 'see' the area around it not blocked by walls/other obstacles. Doors will count as obstacles to vision, but not to the agent. Its next objective's direction will be fed to it, along with its current health.
 
 \subsection{Define a state transition function and the reward function}
 
