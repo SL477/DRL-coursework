@@ -5,12 +5,13 @@ import numpy as np
 def key() -> dict:
     """What the numbers mean"""
     return {
-        0: "Empty space",
-        1: "A wall",
-        2: "A door",
-        3: "The primary goal (the reactor control panel)",
-        4: "The secondary goal (the escape route)",
-        5: "The agent"
+        0: {'desc': "Empty space", 'reward': 0},
+        1: {'desc': "A wall", 'reward': 0},
+        2: {'desc': "A door", 'reward': 0},
+        3: {'desc': "The primary goal (the reactor control panel)", 'reward': 50},
+        4: {'desc': "The secondary goal (the escape route)", 'reward': 30},
+        5: {'desc': "The agent", 'reward': 0},
+        6: {'desc': "A trap", 'reward': -10}
     }
 
 def basic_map() -> np.array:
