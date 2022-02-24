@@ -2,3 +2,4 @@ report.pdf
 report.synctex.gz
 ~*.pptx
 .pytest_cache/
+.ipynb_checkpoints/
