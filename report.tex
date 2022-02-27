@@ -38,7 +38,7 @@ To make our list of states we flatten the 2D map into an array. To flip from the
 
 For the reward function we create a matrix with one state per row and one action per column. Using a lookup back to the map we get the code of the cell and lookup its reward. As the agent is only allowed to claim the primary objective once per episode the reward is set to zero once it has been claimed by the agent.
 
-\begin{table}[h!]
+\begin{table}[htbp]
 	\begin{center}
 		\caption{Rewards}
 		\label{tab:table1}
@@ -63,6 +63,15 @@ For the reward function we create a matrix with one state per row and one action
 \end{table}
 
 \subsection{Set up the Q-learning parameters (gamma, alpha) and policy}
+For the Q-learning algorithm we have implemented it as a function (run\_q\_learning\_basic), with the parameters alpha, gamma, epsilon and num episodes.
+
+Alpha, the learning rate, we have set as 1.
+
+Gamma, the discount factor for future rewards, we set as 0.8.
+
+Epsilon, the chance of choosing the policy 'exploit' over 'explore', we set as 0.9.
+
+Num\_episodes, the number of learning episodes, we set as 1000.
 
 \subsection{Run the Q-learning algorithm and represent its performance}
 
