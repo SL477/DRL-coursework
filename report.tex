@@ -19,6 +19,8 @@
 
 \begin{abstract}
 TODO: Abstract
+
+Our code is available at this link \url{https://github.com/SL477/DRL-coursework}.
 \end{abstract}
 
 \section{Main problem: Starship Saboteur}
@@ -28,10 +30,37 @@ Here our agent will be teleported into a random free location on a spaceship (i.
 The agent will be able to 'see' the area around it not blocked by walls/other obstacles. Doors will count as obstacles to vision, but not to the agent. Its next objective's direction will be fed to it, along with its current health.
 
 \textbf{The story version:}
-Fired from a Solar Federation Space Force Infiltrator, our intrepid Space Marine Commando robot exits its boarding pod in a random place in the Custodian warship. Its mission is to cripple the ship's reactor before its crew are revived from stasis. Its survival is optional, after it has completed its mission the robot can escape back to where a shuttle has cut a hole into the ship to retrieve it. But if the robot is destroyed, well we can always build more robots.
+Fired from a Solar Federation Space Force Infiltrator, our intrepid Space Marine Commando robot exits its boarding pod in a random place in the Custodian warship. Its mission is to cripple the ship's reactor before its crew are revived from stasis by planting a timed explosive on it. Its survival is optional, after it has completed its mission the robot can escape back to where a shuttle has cut a hole into the ship to retrieve it. But if the robot is destroyed, well we can always build more robots.
 % harpoon line has been fired into the ship to retrieve it.
 
 \subsection{Define a state transition function and the reward function}
+To make our list of states we flatten the 2D map into an array. To flip from the array to the map we can get the row by integer dividing the index by the height of the map and the column by taking the modulus of the index by the width.
+
+For the reward function we create a matrix with one state per row and one action per column. Using a lookup back to the map we get the code of the cell and lookup its reward. As the agent is only allowed to claim the primary objective once per episode the reward is set to zero once it has been claimed by the agent.
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Rewards}
+		\label{tab:table1}
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Code} & \textbf{Reward} \\
+			\hline
+			Empty space & 0 \\
+			\hline
+			Wall & 0 \\
+			\hline
+			Door & 0 \\
+			\hline
+			The primary goal (the reactor control panel) & 50 \\
+			\hline
+			The secondary goal (the escape route) & 30 \\
+			\hline
+			A trap & -10 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 
 \subsection{Set up the Q-learning parameters (gamma, alpha) and policy}
 
