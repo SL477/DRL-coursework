@@ -3,3 +3,4 @@ pytest
 pandas
 jupyterlab
 networkx
+matplotlib
