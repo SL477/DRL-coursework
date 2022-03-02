@@ -99,6 +99,23 @@ Epsilon, the chance of choosing the policy 'exploit' over 'explore', we set as 0
 Num\_episodes, the number of learning episodes, we set as 1000.
 
 \subsection{Run the Q-learning algorithm and represent its performance}
+The Q-learning algorithm is:
+
+$Q[s, a] = Q[s, a] + \alpha * R[s, a] + \gamma * (max(Q[s]) - Q[s, a])$
+
+With the exploit/explore part given by:
+
+if RandomNumber $> \epsilon$ then explore, otherwise exploit.
+
+The algorithm takes 22.5 seconds to run on my PC. In Figure \ref{fig:firstparamsRewardVQVar} we can see the mean rewards versus their corresponding Q variances. The mean total health stayed at roughly 100, with at least one iteration within each iteration doing something to reduce its health. Most of the iteration's mean rewards were around 50, indicating that all but two of the iterations figured that it was a good thing to collect both rewards.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics{img/firstparamsRewardVQVar.png}
+		\caption{Reward Versus Variance, for Alpha = 1, Gamma = 0.8, Epsilon = 0.9, for 27 rounds of 1000 iterations of training}
+		\label{fig:firstparamsRewardVQVar}
+	\end{center}
+\end{figure}
 
 \subsection{Repeat the experiment with different parameter values, and policies}
 
