@@ -1,3 +1,5 @@
 numpy
 pytest
 pandas
+jupyterlab
+networkx
