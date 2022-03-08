@@ -49,7 +49,7 @@ We will be using Q-learning to 'solve' this environment. Q-learning attempts to 
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics{img/basic_map_graph.png}
+		\includegraphics[scale=0.5]{img/basic_map_graph.png}
 		\caption{Nodes with access to one another}
 		\label{fig:basic_map_graph}
 	\end{center}
@@ -107,15 +107,17 @@ With the exploit/explore part given by:
 
 if RandomNumber $> \epsilon$ then explore, otherwise exploit.
 
-The algorithm takes 22.5 seconds to run on my PC. In Figure \ref{fig:firstparamsRewardVQVar} we can see the mean rewards versus their corresponding Q variances. The mean total health stayed at roughly 100, with at least one iteration within each iteration doing something to reduce its health. Most of the iteration's mean rewards were around 50, indicating that all but two of the iterations figured that it was a good thing to collect both rewards.
+The algorithm takes 22.5 seconds to run on my PC. In Figure \ref{fig:firstparamsRewardVQVar} we can see the mean rewards versus their corresponding Q variances. The mean total health stayed at roughly 100, with at least one iteration within each iteration doing something to reduce its health. Most of the iteration's mean rewards were around 50, indicating that they were only going for one of the reward points (fortunately the higher reward point).
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics{img/firstparamsRewardVQVar.png}
+		\includegraphics[scale=0.8]{img/firstparamsRewardVQVarWithEarlyStopping.png}
 		\caption{Reward Versus Variance, for Alpha = 1, Gamma = 0.8, Epsilon = 0.9, for 27 rounds of 1000 iterations of training}
 		\label{fig:firstparamsRewardVQVar}
 	\end{center}
 \end{figure}
+
+It also looks like those which converged fastest were also the ones to get the lowest reward (around 30), they likely found that one first and did not explore enough to find the other reward point.
 
 \subsection{Repeat the experiment with different parameter values, and policies}
 
