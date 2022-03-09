@@ -120,6 +120,35 @@ The algorithm takes 22.5 seconds to run on my PC. In Figure \ref{fig:firstparams
 It also looks like those which converged fastest were also the ones to get the lowest reward (around 30), they likely found that one first and did not explore enough to find the other reward point.
 
 \subsection{Repeat the experiment with different parameter values, and policies}
+Running a full grid search of Alpha, Gamma and Epsilon parameters results in Figure \ref{fig:GridSearchColorGamma}, where we can see that as the epsilon (explore/exploit) parameter gets lower (promoting explore) our agent is more likely to wander into one or more of the traps. Considering that these traps give minus ten points and this is the average reward over the number of episodes until convergence (or 1000 episodes) this is quite the effect for some of the more extreme negative rewards (the agent can only step on the traps ten times a run before it is terminated).
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.8]{img/GridSearchRewardEpsilonGamma.png}
+		\caption{Grid Search of the parameters}
+		\label{fig:GridSearchColorGamma}
+	\end{center}
+\end{figure}
+
+Holding the other parameters stationary and running through the different Gamma (discount factor for future reward) sees a steady decline in how much reward it picks up, until at Gamma equals 1 (or in other words future rewards are now worthless) it repeatedly throws itself at the traps (Figure \ref{fig:GridSearchGamma}). We had it run through a thousand episode training session three times for each parameter, so it is not that likely to be a statistical anomoly.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.5]{img/GridSearchGamma.png}
+		\caption{Grid Search of the gamma parameter}
+		\label{fig:GridSearchGamma}
+	\end{center}
+\end{figure}
+
+For Alpha (the learning rate) running a grid search with Gamma at 0.8 and Epsilon at 0.4, does not seem to have too much effect on the mean reward but it does have a more or less linear relationship with the Q variance (the Gamma variable has a similar effect up until gamma = 1) as shown in Figure \ref{fig:GridSearchAlpha}.
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.5]{img/GridSearchAlphaQ.png}
+		\caption{Grid Search of the alpha parameter}
+		\label{fig:GridSearchAlpha}
+	\end{center}
+\end{figure}
 
 \subsection{Analyse the results quantitatively and qualitatively}
 
