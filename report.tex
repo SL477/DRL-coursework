@@ -151,6 +151,31 @@ For Alpha (the learning rate) running a grid search with Gamma at 0.8 and Epsilo
 \end{figure}
 
 \subsection{Analyse the results quantitatively and qualitatively}
+Here we compare the Q variance and mean rewards for the old parameters (Alpha: 1, Gamma: 0.8, Epsilon: 0.9) and the new parameters (Alpha: 0.8, Gamma: 0.8, Alpha: 0.4), in Figure \ref{fig:bothData}. The new parameters have much lower variance compared with the new parameters in that they are very tightly distributed and the old parameters are much more spread out. The problem with the new parameters is that they seem to be very good at learning the wrong lessons, as they have learnt to go for the lower reward by going through the traps. The original parameters have learnt to generally avoid the traps and some have gone for the higher reward point and some have gone for the lower reward point. The new values have high precision, but are somewhat biased away from what we want them to do (get the higher reward point and ideally the lower one too). The old values have low precision, but are generally unbiased towards their primary target (though some get just the secondary target, but not both).
+
+%\begin{figure}[h!]
+%	\begin{center}
+%		\includegraphics[scale=0.5]{img/bothDataRewardVQVar.png}
+%		\caption{New Versus Old parameters}
+%		\label{fig:bothDataRewardVQVar}
+%	\end{center}
+%\end{figure}
+
+%\begin{figure}[h!]
+%	\begin{center}
+%		\includegraphics[scale=0.5]{img/bothDataHealthVNumEpisodes.png}
+%		\caption{New Versus Old parameters}
+%		\label{fig:bothDataHealthVNumEpisodes}
+%	\end{center}
+%\end{figure}
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[scale=0.8]{img/bothData.png}
+		\caption{New Versus Old parameters}
+		\label{fig:bothData}
+	\end{center}
+\end{figure}
 
 \section{Implement DQN with two improvements}
 
