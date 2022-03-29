@@ -3,7 +3,7 @@
 import numpy as np
 
 def key() -> dict:
-    """What the numbers mean"""
+    """What the numbers mean. More for informational purposes than anything else."""
     return {
         0: {'desc': "Empty space", 'reward': 0},
         1: {'desc': "A wall", 'reward': 0},
@@ -11,7 +11,9 @@ def key() -> dict:
         3: {'desc': "The primary goal (the reactor control panel)", 'reward': 50},
         4: {'desc': "The secondary goal (the escape route)", 'reward': 30},
         5: {'desc': "The agent", 'reward': 0},
-        6: {'desc': "A trap", 'reward': -10}
+        6: {'desc': "A trap", 'reward': -10},
+        7: {'desc': "An enemy which bobs up and down", 'reward': -10},
+        8: {'desc': 'An enemy which bobs side to side', 'reward': -10}
     }
 
 def basic_map() -> np.array:
@@ -28,5 +30,11 @@ def basic_map() -> np.array:
         [1, 1, 1, 1, 1, 1, 1, 1, 1]
     ])
 
+def adv_map() -> np.array:
+    """Get the advanced map"""
+    # reads the Advanced map csv file and converts it into a numpy array (I found the function from stackoverflow, but used numpy's 'help' to grab the delimiter)
+    return np.genfromtxt("helpers/AdvancedMap.csv", delimiter = ",")
+
 if __name__ == "__main__":
-    print(basic_map())
+    #print(basic_map())
+    print(adv_map())
