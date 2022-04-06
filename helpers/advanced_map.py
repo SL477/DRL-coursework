@@ -11,6 +11,8 @@ class AdvancedMap():
     """Advanced map class. Holds an instance of the map. Animates the enemies. Handles actions
     
     Methods:
+    reset, reset the map to what it was before & return the observations
+
     step, send in an Action named tuple to perform the step. Animate the enemies and the agent and send back the reward and other useful info
     
     display, prints a pretty view of the map
@@ -22,6 +24,20 @@ class AdvancedMap():
     direction_to_objective, returns the direction to where the next objective is
     """
     def __init__(self, pos=None) -> None:
+        self.map = adv_map()
+
+        # find the enemies and their positions in the 3 time steps (looking for 7 & 8)
+        self.enemies = []
+
+        # set other stats
+        self.agent_health = 100
+
+        # reset the environment to set it up
+        self.reset(pos=pos)
+    
+    def reset(self, pos=None) -> dict:
+        """the function to reset the map"""
+        # as we have changed a load of the values set the map back to what it was
         self.map = adv_map()
 
         # find the enemies and their positions in the 3 time steps (looking for 7 & 8)
@@ -39,7 +55,7 @@ class AdvancedMap():
             epos = [(i[1] - 1, i[0]), (i[1], i[0]), (i[1] + 1, i[0])]
             banned_positions += epos
             self.enemies.append(Enemy(epos))
-        
+
         # agent's starting point
         # The agent cannot start where the enemies will be stepping
         allowed_positions = np.argwhere(self.map == 0.)
@@ -63,8 +79,18 @@ class AdvancedMap():
 
         # set other stats
         self.agent_health = 100
+
+        # return the observations
+        return {
+            'is_stop': False, 
+            'immediate_reward': 0,
+            'enemy_count': len(self.enemies), # enemy count
+            'agent_view': self.agents_view(), # agent view
+            'obj_direction':  self.direction_to_objective(), # direction to objective
+            'agent_health': self.agent_health, # agent health
+            }
         
-    def step(self, action):
+    def step(self, action: Action) -> dict:
         """Need to animate the enemies. Perform the action. Return the compass to the objective, update reward, mini-map, etc"""
         # run actions first. If the shoot action has been performed will need to eliminate enemies first
         ret = {'is_stop': False, 'immediate_reward': 0}
@@ -209,8 +235,18 @@ class AdvancedMap():
                 # check that we aren't straying out of the boundary 
                 if self.agent_pos[1] + row < len(self.map) and self.agent_pos[0] + col < len(self.map[0]):
                     val = self.map[self.agent_pos[1] + row][self.agent_pos[0] + col]
-                    val_offset_1 = self.map[self.agent_pos[1] + row][self.agent_pos[0] + col - 1]
-                    val_offset_2 = self.map[self.agent_pos[1] + row - 1][self.agent_pos[0] + col - 1]
+                    # if the row is below need to alter if we're looking at the row above or below
+                    if row < 0:
+                        row_plus_minus = 1
+                    else:
+                        row_plus_minus = -1
+                    # same with the columns
+                    if col < 0:
+                        col_plus_minus = 1
+                    else:
+                        col_plus_minus = -1
+                    val_offset_1 = self.map[self.agent_pos[1] + row][self.agent_pos[0] + col + col_plus_minus]
+                    val_offset_2 = self.map[self.agent_pos[1] + row + row_plus_minus][self.agent_pos[0] + col + col_plus_minus]
 
                     
                     #print('val', val, self.agent_pos[0] + col - 1, self.agent_pos[1] + row)
@@ -226,8 +262,22 @@ class AdvancedMap():
                 # check that we aren't straying out of the boundary 
                 if self.agent_pos[1] + row < len(self.map) and self.agent_pos[0] + col < len(self.map[0]):
                     val = self.map[self.agent_pos[1] + row][self.agent_pos[0] + col]
-                    val_offset_1 = self.map[self.agent_pos[1] + row - 1][self.agent_pos[0] + col]
-                    val_offset_2 = self.map[self.agent_pos[1] + row + 1][self.agent_pos[0] + col + 1]
+
+                    # if the row is below need to alter if we're looking at the row above or below
+                    if row < 0:
+                        row_plus_minus = 1
+                    else:
+                        row_plus_minus = -1
+                    # same with the columns
+                    if col < 0:
+                        col_plus_minus = 1
+                    else:
+                        col_plus_minus = -1
+                    
+                    #val_offset_1 = self.map[self.agent_pos[1] + row - 1][self.agent_pos[0] + col]
+                    #val_offset_2 = self.map[self.agent_pos[1] + row + 1][self.agent_pos[0] + col + 1]
+                    val_offset_1 = self.map[self.agent_pos[1] + row - row_plus_minus][self.agent_pos[0] + col]
+                    val_offset_2 = self.map[self.agent_pos[1] + row + row_plus_minus][self.agent_pos[0] + col + col_plus_minus]
 
                     if val_offset_1 in [1, 2] and val_offset_2 in [1, 2]:
                         break
@@ -258,16 +308,55 @@ if __name__ == '__main__':
     print(m.direction_to_objective())
 
     # perform an action
-    print("---SHOOT---")
-    print(m.step(adv_actions()['shoot']))
+    #print("---SHOOT---")
+    #print(m.step(adv_actions()['shoot']))
     #print("---LEFT---")
     #print(m.step(adv_actions()['left']))
     print("---Up---")
-    print(m.step(adv_actions()['left']))
+    print(m.step(adv_actions()['up']))
     m.display()
     print("---Up---")
-    print(m.step(adv_actions()['left']))
+    print(m.step(adv_actions()['up']))
     m.display()
     print("---Up---")
+    print(m.step(adv_actions()['up']))
+    m.display()
+    print("---Left---")
     print(m.step(adv_actions()['left']))
     m.display()
+
+    # manual testing
+    while True:
+        # get the user's input
+        inp = input("Press a direction or space: ")
+
+        # test the input, map to actions and quit if no match
+        if inp == "a":
+            print('--LEFT--')
+            print(m.step(adv_actions()['left']))
+            m.display()
+            print('Agent position:',m.agent_pos)
+        elif inp == 'w':
+            print('--UP--')
+            print(m.step(adv_actions()['up']))
+            m.display()
+            print('Agent position:',m.agent_pos)
+        elif inp == 's':
+            print('--DOWN--')
+            print(m.step(adv_actions()['down']))
+            m.display()
+            print('Agent position:',m.agent_pos)
+        elif inp == 'd':
+            print('--RIGHT--')
+            print(m.step(adv_actions()['right']))
+            m.display()
+            print('Agent position:',m.agent_pos)
+        elif inp == ' ':
+            print("---SHOOT---")
+            print(m.step(adv_actions()['shoot']))
+            m.display()
+            print('Agent position:',m.agent_pos)
+        else:
+            # Quit text which seemed like a good idea at the time
+            print("Goodbye")
+            break

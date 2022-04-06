@@ -178,6 +178,15 @@ Here we compare the Q variance and mean rewards for the old parameters (Alpha: 1
 \end{figure}
 
 \section{Implement DQN with two improvements}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics{img/advanced_map.png}
+		\caption{Green: reward points, yellow: obstacles, blue: doors, dark purple: empty space, light purple: walls}
+		\label{fig:advanced_map}
+	\end{center}
+\end{figure}
+
+Here we have used a similar environment to the basic task, but now have enemies which move around and we now only have a limited field of view (Fig. \ref{fig:advanced_map}). To counter the limited field of view we have an objective compass to see where we are going. Our agent also has a gun to remove nearby enemies.
 
 \subsection{Analyse the results quantitatively and qualitatively}
 
