@@ -34,6 +34,9 @@ class AdvancedMap():
 
         # reset the environment to set it up
         self.reset(pos=pos)
+
+        # set a limit
+        self.limit = 200
     
     def reset(self, pos=None) -> dict:
         """the function to reset the map"""
@@ -80,6 +83,9 @@ class AdvancedMap():
         # set other stats
         self.agent_health = 100
 
+        # set a limit
+        self.limit = 200
+
         # return the observations
         return {
             'is_stop': False, 
@@ -93,7 +99,7 @@ class AdvancedMap():
     def step(self, action: Action) -> dict:
         """Need to animate the enemies. Perform the action. Return the compass to the objective, update reward, mini-map, etc"""
         # run actions first. If the shoot action has been performed will need to eliminate enemies first
-        ret = {'is_stop': False, 'immediate_reward': 0}
+        ret = {'is_stop': False, 'immediate_reward': -1}
         if action.shoot:
             # Shoot
             # Go through the locations of the enemies, if one is within 3 spaces of the agent then remove it from the array
@@ -130,10 +136,15 @@ class AdvancedMap():
                 self.agent_pos = (new_x, new_y)
 
                 # Sort out rewards
-                ret['immediate_reward'] += val_key[val_new_cell]['reward']
+                rew = val_key[val_new_cell]['reward']
+                if not np.isnan(rew):
+                    ret['immediate_reward'] += rew
                 if val_key[val_new_cell]['reward'] == 30:
-                    ret['is_stop'] == True
-                elif val_new_cell == 3.:
+                    # remove the reward point from the map so that it cannot be claimed again
+                    self.old_agent_value = 0.
+                    # as this is the escape point flag that we should end the session
+                    ret['is_stop'] = True
+                elif val_key[val_new_cell]['reward'] == 50:
                     # if we land on the primary objective then remove it from the map so we cannot claim it again
                     self.old_agent_value = 0.
         
@@ -149,7 +160,9 @@ class AdvancedMap():
             
             if (e_x1, e_y1) == self.agent_pos:
                 # We have hit the player so take off the reward
-                ret['immediate_reward'] += key()[e_val]['reward']
+                rew = key()[e_val]['reward']
+                if not np.isnan(rew):
+                    ret['immediate_reward'] += rew
 
                 # rollback the enemy
                 self.enemies[e_idx].current_position = e_current_position
@@ -164,6 +177,12 @@ class AdvancedMap():
             self.agent_health += ret['immediate_reward']
             if self.agent_health <= 0:
                 ret['is_stop'] = True
+        
+        # sort out limit
+        self.limit -= 1
+        if self.limit < 0:
+          ret['is_stop'] = True
+
         # enemy count
         ret['enemy_count'] = len(self.enemies)
 
@@ -276,8 +295,14 @@ class AdvancedMap():
                     
                     #val_offset_1 = self.map[self.agent_pos[1] + row - 1][self.agent_pos[0] + col]
                     #val_offset_2 = self.map[self.agent_pos[1] + row + 1][self.agent_pos[0] + col + 1]
-                    val_offset_1 = self.map[self.agent_pos[1] + row - row_plus_minus][self.agent_pos[0] + col]
-                    val_offset_2 = self.map[self.agent_pos[1] + row + row_plus_minus][self.agent_pos[0] + col + col_plus_minus]
+                    if self.agent_pos[1] + row - row_plus_minus < len(self.map):
+                        val_offset_1 = self.map[self.agent_pos[1] + row - row_plus_minus][self.agent_pos[0] + col]
+                    else:
+                        val_offset_1 = 0.
+                    if self.agent_pos[1] + row + row_plus_minus < len(self.map):
+                        val_offset_2 = self.map[self.agent_pos[1] + row + row_plus_minus][self.agent_pos[0] + col + col_plus_minus]
+                    else:
+                        val_offset_2 = 0.
 
                     if val_offset_1 in [1, 2] and val_offset_2 in [1, 2]:
                         break

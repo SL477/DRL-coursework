@@ -9,7 +9,7 @@ def get_available_actions(r_matrix: np.array, current_state: int) -> list:
     """Get the actions available for this state"""
     return np.where(~np.isnan(r_matrix[current_state]))[0]
 
-def adv_actions():
+def adv_actions() -> dict:
     """This is for the advanced map. left, right, up, down, fire gun"""
     
     return {name: Action(idx, x, y, shoot) for name, idx, x, y, shoot in [
@@ -19,6 +19,11 @@ def adv_actions():
         ('down', 3, 0, 1, False),
         ('shoot', 4, 0, 0, True) # handle this one somewhere else, any enemy in the neighbouring cells are destroyed
     ]}
+
+def adv_action_from_index(idx: int) -> Action:
+    """Return an action from an index"""
+    actions_array = {act.index: act for i, act in adv_actions().items()}
+    return actions_array[idx]
 
 if __name__ == "__main__":
     print(adv_actions())

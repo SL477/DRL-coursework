@@ -1,6 +1,7 @@
 # This is just to store the maps
 # Imports
 import numpy as np
+import os.path
 
 def key() -> dict:
     """What the numbers mean. More for informational purposes than anything else."""
@@ -33,7 +34,11 @@ def basic_map() -> np.array:
 def adv_map() -> np.array:
     """Get the advanced map"""
     # reads the Advanced map csv file and converts it into a numpy array (I found the function from stackoverflow, but used numpy's 'help' to grab the delimiter)
-    return np.genfromtxt("helpers/AdvancedMap.csv", delimiter = ",")
+
+    #return np.genfromtxt("helpers/AdvancedMap.csv", delimiter = ",")
+    pth = os.path.abspath(os.path.dirname(__file__)) # from https://stackoverflow.com/questions/40416072/reading-file-using-relative-path-in-python-project
+    pth = os.path.join(pth, "AdvancedMap.csv")
+    return np.genfromtxt(pth, delimiter=',')
 
 if __name__ == "__main__":
     #print(basic_map())
