@@ -39,3 +39,9 @@ https://user-images.githubusercontent.com/51207735/163679367-81e7e035-6ddb-4088-
 ### Both
 
 https://user-images.githubusercontent.com/51207735/163679376-f94f9e36-6a75-4ea2-8869-eb4f01bbe5a6.mp4
+
+## installs
+run apt-get update first
+xvfb
+python-opengl
+ffmpeg
