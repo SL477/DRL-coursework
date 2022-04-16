@@ -26,16 +26,16 @@ Here our agent lands on a bigger spaceship and has to take out the reactor and t
 
 ### No improvements (basic DQN)
 
-<video src="videos/NoImprovement.mp4" />
+![No improvements](videos/NoImprovement.mp4)
 
 ### DoubleQ
 
-<video src="videos/DoubleQ.mp4" />
+![Double Q](videos/DoubleQ.mp4)
 
 ### Prioritised Replay
 
-<video src="videos/PrioritisedReplay.mp4" />
+![Prioritised Replay](videos/PrioritisedReplay.mp4)
 
 ### Both
 
-<video src="videos/Both.mp4" />
+![Both](videos/Both.mp4)
