@@ -5,5 +5,6 @@ jupyterlab
 networkx
 matplotlib
 torch
+ray[rllib]
 gym[atari,accept-rom-license]==0.21.0
 pyglet
