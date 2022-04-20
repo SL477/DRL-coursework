@@ -1,2 +1,3 @@
 test1/
-SpaceInvadersES/
+SpaceInvadersES/*
+!SpaceInvadersES/checkpoint-25*
