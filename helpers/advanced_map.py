@@ -320,6 +320,33 @@ class AdvancedMap():
         primary_obj = np.argwhere(self.map == 4)
         primary_obj = primary_obj[0]
         return primary_obj[1] - self.agent_pos[0], primary_obj[0] - self.agent_pos[1]
+    
+    def convert_observations(self, obs: dict): #-> tuple(np.array, int, bool):
+        """Convert the observations from step's dictionary into an array of the agent's view, the reward for the round and whether or not to stop
+        
+        The dictionary contains:
+    is_stop: a boolean, used internally to determine whether to stop the episode
+    immediate_reward: the points we got in the last round
+    enemy_count: how many active enemies there are
+    agent_view: the 7x7 view of the surroundings (values between 0-8)
+    obj_direction: the relative direction to the objective (0-max width, 0-max height)
+    agent_health: the health of the agent, between 0-100"""
+
+        # sort out the relative coordinates, so that the directions are divided by the size of the environment
+        obj_direction = np.divide(np.array(list(obs['obj_direction'])), np.array([21., 29.])) # TODO dynamically get the size
+
+        # normalise the view of the surroundings
+        # use ravel to reshape into a 1 row list and normalise it
+        agent_view = obs['agent_view'].ravel() / 8.
+
+        # enemy_count
+        enemy_count = np.array(obs['enemy_count'] / 3.) # TODO dynamically get the max number of enemies
+
+        # agent_health
+        agent_health = np.array(obs['agent_health'] / 100.)
+
+        # concatenate into a single numpy array, 1 row, 2 + 49 + 1 + 1 = 53 columns between -1 & 1
+        return np.concatenate([obj_direction, agent_view, [enemy_count], [agent_health]]), obs['immediate_reward'], obs['is_stop']
 
 if __name__ == '__main__':
     # run as python3 -m helpers.advanced_map
