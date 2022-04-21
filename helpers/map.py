@@ -3,14 +3,14 @@
 import numpy as np
 import os.path
 
-def key() -> dict:
+def key(advanced=False) -> dict:
     """What the numbers mean. More for informational purposes than anything else."""
     return {
         0: {'desc': "Empty space", 'reward': 0, 'solid': False},
         1: {'desc': "A wall", 'reward': 0, 'solid': True},
         2: {'desc': "A door", 'reward': 0, 'solid': False},
-        3: {'desc': "The primary goal (the reactor control panel)", 'reward': 50, 'solid': False},
-        4: {'desc': "The secondary goal (the escape route)", 'reward': 30, 'solid': False},
+        3: {'desc': "The primary goal (the reactor control panel)", 'reward': 100 if advanced else 50, 'solid': False},
+        4: {'desc': "The secondary goal (the escape route)", 'reward': 50 if advanced else 30, 'solid': False},
         5: {'desc': "The agent", 'reward': 0, 'solid': False},
         6: {'desc': "A trap", 'reward': -10, 'solid': False},
         7: {'desc': "An enemy which bobs up and down", 'reward': -10, 'solid': True},

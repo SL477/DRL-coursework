@@ -120,7 +120,7 @@ class AdvancedMap():
             new_x, new_y = new_x + action.x, new_y + action.y
             val_new_cell = self.map[new_y][new_x]
 
-            val_key = key()
+            val_key = key(advanced=True)
             if val_key[val_new_cell]['solid']:
                 # If the new cell is solid then we cannot move there
                 new_x, new_y = self.agent_pos
@@ -139,12 +139,12 @@ class AdvancedMap():
                 rew = val_key[val_new_cell]['reward']
                 if not np.isnan(rew):
                     ret['immediate_reward'] += rew
-                if val_key[val_new_cell]['reward'] == 30:
+                if val_new_cell == 4: #val_key[val_new_cell]['reward'] == 30:
                     # remove the reward point from the map so that it cannot be claimed again
                     self.old_agent_value = 0.
                     # as this is the escape point flag that we should end the session
                     ret['is_stop'] = True
-                elif val_key[val_new_cell]['reward'] == 50:
+                elif val_new_cell == 3: # val_key[val_new_cell]['reward'] == 50:
                     # if we land on the primary objective then remove it from the map so we cannot claim it again
                     self.old_agent_value = 0.
         
@@ -160,7 +160,7 @@ class AdvancedMap():
             
             if (e_x1, e_y1) == self.agent_pos:
                 # We have hit the player so take off the reward
-                rew = key()[e_val]['reward']
+                rew = key(advanced=True)[e_val]['reward']
                 if not np.isnan(rew):
                     ret['immediate_reward'] += rew
 
@@ -181,7 +181,7 @@ class AdvancedMap():
         # sort out limit
         self.limit -= 1
         if self.limit < 0:
-          ret['is_stop'] = True
+            ret['is_stop'] = True
 
         # enemy count
         ret['enemy_count'] = len(self.enemies)
