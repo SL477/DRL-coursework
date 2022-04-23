@@ -1,9 +1,9 @@
-finish code for part 7 - done (waiting for it to finish)
+finish code for part 7 - done
 change writeup and cite soures for part 7 - done
 
 rerun rllib notebook for DQN
 
-code for getting videos of the new agents for part 8
+code for getting videos of the new agents for part 8 - done
 change graphs and corresponding writeup for part 8
 
 merge repositories and commit, need DQN with two improvements no rllib
