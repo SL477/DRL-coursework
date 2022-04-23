@@ -4,7 +4,7 @@ change writeup and cite soures for part 7 - done
 code for getting videos of the new agents for part 8
 change graphs and corresponding writeup for part 8
 
-merge repositories and commit
+merge repositories and commit, need DQN with two improvements no rllib
 
 Soft Actor Critic code
 Soft Actor Critic write up
@@ -15,7 +15,7 @@ Get any new graphs for atari - done
 Get new video for atari - done
 update writeup for atari - done
 
-commit
+commit - done
 
 spellcheck & proofread
 

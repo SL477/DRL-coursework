@@ -99,7 +99,7 @@ class AdvancedMap():
     def step(self, action: Action) -> dict:
         """Need to animate the enemies. Perform the action. Return the compass to the objective, update reward, mini-map, etc"""
         # run actions first. If the shoot action has been performed will need to eliminate enemies first
-        ret = {'is_stop': False, 'immediate_reward': -1}
+        ret = {'is_stop': False, 'immediate_reward': 0}
         if action.shoot:
             # Shoot
             # Go through the locations of the enemies, if one is within 3 spaces of the agent then remove it from the array
@@ -180,8 +180,12 @@ class AdvancedMap():
         
         # sort out limit
         self.limit -= 1
-        if self.limit < 0:
+        if self.limit < 1:
             ret['is_stop'] = True
+        
+        # penalise time step if nothing is achieved
+        if ret['immediate_reward'] == 0:
+            ret['immediate_reward'] = -1
 
         # enemy count
         ret['enemy_count'] = len(self.enemies)
@@ -318,8 +322,11 @@ class AdvancedMap():
             primary_obj = primary_obj[0]
             return primary_obj[1] - self.agent_pos[0], primary_obj[0] - self.agent_pos[1]
         primary_obj = np.argwhere(self.map == 4)
-        primary_obj = primary_obj[0]
-        return primary_obj[1] - self.agent_pos[0], primary_obj[0] - self.agent_pos[1]
+        if len(primary_obj) > 0:
+            primary_obj = primary_obj[0]
+            return primary_obj[1] - self.agent_pos[0], primary_obj[0] - self.agent_pos[1]
+        # if both have been claimed return 0, 0 as there are no more objectives
+        return 0, 0
     
     def convert_observations(self, obs: dict): #-> tuple(np.array, int, bool):
         """Convert the observations from step's dictionary into an array of the agent's view, the reward for the round and whether or not to stop
