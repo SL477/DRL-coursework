@@ -33,9 +33,9 @@ code as zip
 convert ipynb notebooks to pdf
 attach notebooks to report
 
-contribution page
+contribution page - done
 
-report abstract
+report abstract - done
 
 submit coursework
 
