@@ -1,0 +1,39 @@
+finish code for part 7 - done (waiting for it to finish)
+change writeup and cite soures for part 7 - done
+
+code for getting videos of the new agents for part 8
+change graphs and corresponding writeup for part 8
+
+merge repositories and commit
+
+Soft Actor Critic code
+Soft Actor Critic write up
+commit
+
+finish job for atari (part 9)
+Get any new graphs for atari
+
+commit
+
+spellcheck & proofread
+
+get code as plain text and add to end of report
+https://tex.stackexchange.com/questions/72899/inserting-code-in-multiple-pages-as-an-appendix
+https://tex.stackexchange.com/questions/289385/workflow-for-including-jupyter-aka-ipython-notebooks-as-pages-in-a-latex-docum
+code as zip
+
+convert ipynb notebooks to pdf
+
+contribution page
+
+report abstract
+
+submit coursework
+
+relook through parts 1-6
+
+Get relevant graphs, videos, text, etc. into powerpoint
+
+do video and submit powerpoint/pdf of powerpoint
+
+update readme and make reposity public
