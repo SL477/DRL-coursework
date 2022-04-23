@@ -10,8 +10,10 @@ Soft Actor Critic code
 Soft Actor Critic write up
 commit
 
-finish job for atari (part 9)
-Get any new graphs for atari
+finish job for atari (part 9) - done
+Get any new graphs for atari - done
+Get new video for atari - done
+update writeup for atari - done
 
 commit
 
