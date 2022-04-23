@@ -1,3 +1,4 @@
 test1/
 SpaceInvadersES/*
 !SpaceInvadersES/checkpoint-25*
+!SpaceInvadersES/tune/
