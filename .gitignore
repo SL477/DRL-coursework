@@ -4,3 +4,4 @@ report.synctex.gz
 .pytest_cache/
 .ipynb_checkpoints/
 ~*.xlsx
+atari_spaceinvaders.pdf

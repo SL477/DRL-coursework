@@ -1,5 +1,6 @@
 \documentclass[a4pape, 11pt, english]{article}
-\usepackage[margin=1in,footskip=0.25in]{geometry}
+%\usepackage[margin=1in,footskip=0.25in]{geometry}
+\usepackage[margin=0.5in,footskip=0.25in]{geometry}
 \usepackage{natbib}
 
 %\usepackage{cite}
@@ -10,6 +11,19 @@
 \usepackage{xcolor}
 
 \usepackage[hyphens]{url} % To wrap urls on multiple lines: https://tex.stackexchange.com/questions/115690/urls-in-bibliography-latex-not-breaking-line-as-expected
+
+% include PDF and code
+\usepackage{pdfpages}
+\usepackage{listings}
+
+% using https://tex.stackexchange.com/questions/116534/lstlisting-line-wrapping to wrap lines in the code
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
@@ -253,4 +267,46 @@ For a computer game such as this there is no regulatory need to provide the reas
 \bibliography{MyLibrary}
 
 \section{Appendix}
+% TODO DQN notebook
+
+% Include Atari notebook
+% this is from https://tex.stackexchange.com/questions/289385/workflow-for-including-jupyter-aka-ipython-notebooks-as-pages-in-a-latex-docum
+\includepdf[
+	%% Include all pages of the PDF
+	pages=-,
+%% make this page have the usual page style
+    %% (you can change it to plain etc). By default pdfpages
+    %% sets the pagecommand to \pagestyle{empty}
+	%pagecommand={\pagestyle{headings}}]
+]{atari_spaceinvaders.pdf}
+
+% TODO SAC notebook
+
+% code files
+%\lstinputlisting[language=python]{helpers/__init__.py}
+% helpers
+\lstinputlisting[language=python, caption={helpers/advanced map.py}]{helpers/advanced_map.py}
+\lstinputlisting[language=python, caption={helpers/AdvancedMap.csv}]{helpers/AdvancedMap.csv}
+\lstinputlisting[language=python, caption={helpers/enemy.py}]{helpers/enemy.py}
+\lstinputlisting[language=python, caption={helpers/get available actions.py}]{helpers/get_available_actions.py}
+\lstinputlisting[language=python, caption={helpers/map.py}]{helpers/map.py}
+\lstinputlisting[language=python, caption={helpers/q matrix.py}]{helpers/q_matrix.py}
+\lstinputlisting[language=python, caption={helpers/r matrix.py}]{helpers/r_matrix.py}
+\lstinputlisting[language=python, caption={helpers/random start.py}]{helpers/random_start.py}
+\lstinputlisting[language=python, caption={helpers/states and actions.py}]{helpers/states_and_actions.py}
+
+% main folder
+\lstinputlisting[language=python, caption={Dockerfile}]{Dockerfile}
+\lstinputlisting[language=python, caption={requirements.txt}]{requirements.txt}
+
+% tests
+\lstinputlisting[language=python, caption={tests/helpers test/test adv map.py}]{tests/helpers_test/test_adv_map.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test basic map.py}]{tests/helpers_test/test_basic_map.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test enemy.py}]{tests/helpers_test/test_enemy.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test get available actions.py}]{tests/helpers_test/test_get_available_actions.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test q matrix.py}]{tests/helpers_test/test_q_matrix.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test r matrix.py}]{tests/helpers_test/test_r_matrix.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test random start.py}]{tests/helpers_test/test_random_start.py}
+\lstinputlisting[language=python, caption={tests/helpers test/test states.py}]{tests/helpers_test/test_states.py}
+
 \end{document}
