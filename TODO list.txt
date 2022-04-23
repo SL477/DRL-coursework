@@ -1,12 +1,16 @@
 finish code for part 7 - done
 change writeup and cite soures for part 7 - done
 
-rerun rllib notebook for DQN
+rerun rllib notebook for DQN - done
 
 code for getting videos of the new agents for part 8 - done
-change graphs and corresponding writeup for part 8
+change graphs and corresponding writeup for part 8 - done
 
-merge repositories and commit, need DQN with two improvements no rllib
+issue with priority replay, switch to dueling?
+mean Q, calculate a sliding window of 100
+secondary objective, disallow until primary achieved?
+
+merge repositories and commit - done
 
 Soft Actor Critic code
 Soft Actor Critic write up

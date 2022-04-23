@@ -217,23 +217,50 @@ Our second improvement will be Prioritised Experience Replay, "an issue with tra
 \begin{figure}[h!]
 	\begin{center}
 		\includegraphics{img/DQNRewardsOverTime.png}
-		\caption{DQN Rewards over time}
+		\caption{DQN Mean Rewards over time from RLLib}
 		\label{fig:DQNRewardsOverTime}
 	\end{center}
 \end{figure}
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics{img/DQNMeanQs.png}
-		\caption{DQN Mean Q Values}
-		\label{fig:DQNMeanQs}
+		\includegraphics{img/DQNRewardsOverTimeRaw.png}
+		\caption{DQN Mean Rewards over time from scratch}
+		\label{fig:DQNRewardsOverTimeRaw}
 	\end{center}
 \end{figure}
 
-From the rewards over time data we can see that all four models stayed in the range -100 to -12 for their mean rewards (meaning that we may have not been generous enough in our rewards for the AI). We took off one point per step, ten points off for hitting a trap or being hit by an enemy, we gave fifty points for the primary object and thirty points for the secondary objective. In Fig. \ref{fig:DQNRewardsOverTime} we can see that the Deep Q Network with no improvement took the longest to get started, then had a few ups and downs as it got to its minimum point (aside from a few sessions where it stayed around -100 the entire time this was generally how this one worked itself out). Double Q, Prioritised replay and both together all had something of a false start where they started around -90, then got worse and then got better. In the video of the one with no improvement we can see it going for the primary objective and then getting trapped against the wall, it may not have been properly able to distinguish between walls and doors, which are in the game terms one number from each other (in one of the other videos it went straight for the escape point). In Fig. \ref{fig:DQNMeanQs} we can see that the mean Q values for the agent, after a false start, generally tended upwards but in a very loose pattern.
-Double Q had the most rapid improvement, although it also ossilated slighly up and down, but less violently than any of the others. Perhaps the prioritised replay emboldened it into making silly decisions when they were both together, as along it seemed to have less ossilations. This maybe because as double Q is designed not to overestimate actions it was able to more quickly learn what it needed to do. In the video of the Double Q agent we can see that it killed the enemy in the engine room before collecting the primary objective, whereas the more basic agent ignored/avoided it (whether it had not worked out what the gun did or decided not to waste a point in killing it is hard to tell). From the mean Q values in Fig. \ref{fig:DQNMeanQs} we can see that there was not too much of a pattern, except that they fell for the first few rounds.
-Prioritised replay seemed to fall into two patterns of graph, the ones such as the one in Fig. \ref{fig:DQNRewardsOverTime} where it learned to get the reward fairly quickly and others where it did not appear to learn anything for quite a while and then cottened onto the fact that it needed to pick up the rewards. Out of all of the graphs it had the most violent downturn away from the reward, before getting back on track and fairly tightly following its minimum point. In the video we can see the agent fairly confidently grabbing the primary objective, but then it goes all wrong with the agent repeatedly slamming itself against the wall near the enemy. It maybe that it had not worked out about its gun and just knew to get out of the enemy's way rather than lose a point. In Fig. \ref{fig:DQNMeanQs} we can see that prioritised replay had the most tightly clustered Mean Q values, but apart from them trending down for the first few episodes they appear fairly randomly distributed.
-For both improvements together we can see that its rewards improved the slowest, it appeared to ossilate the most from the curve but more gently than Prioritised Replay's or no improvement's. Perhaps showing the caution of prioritised Replay from some of its training session, but when it does learn something new not wildly swinging around as the Double Q side tempers it. In the video we can see that it started in the corridor above the engine room and made a beeline straight for the extraction point (leaving on a reward of 10, while all the other videos finished on -51). We can see that it had figured out that the exit point was directly at the top. However in the video Both2 we can see the agent in the engine room, killing the enemy, completing the objective and then jamming itself in the corner, so while it may have figured out the compass figures it does not seem to have figured out the difference between walls and doors (a door was very close to it, but led to a deadend, it may not have picked up how to navigate the ship, as the main entrance to the engine room is the only entrance and outside of the engine room it is relatively easy to work your way around to the exit point). In Fig. \ref{fig:DQNMeanQs} we can see that having both improvements meant that the mean Q values more or less followed the same loose pattern as the one with no improvements (possibly for this graph the two improvements were able to cancel each other out).
+%rewardsDetailedRaw
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics{img/rewardsDetailedRaw.png}
+		\caption{DQN Rewards over time from scratch}
+		\label{fig:rewardsDetailedRaw}
+	\end{center}
+\end{figure}
+
+%\begin{figure}[h!]
+%	\begin{center}
+%		\includegraphics{img/DQNMeanQs.png}
+%		\caption{DQN Mean Q Values}
+%		\label{fig:DQNMeanQs}
+%	\end{center}
+%\end{figure}
+
+%From the rewards over time data we can see that all four models stayed in the range -100 to -12 for their mean rewards (meaning that we may have not been generous enough in our rewards for the AI). We took off one point per step, ten points off for hitting a trap or being hit by an enemy, we gave fifty points for the primary object and thirty points for the secondary objective. In Fig. \ref{fig:DQNRewardsOverTime} we can see that the Deep Q Network with no improvement took the longest to get started, then had a few ups and downs as it got to its minimum point (aside from a few sessions where it stayed around -100 the entire time this was generally how this one worked itself out). Double Q, Prioritised replay and both together all had something of a false start where they started around -90, then got worse and then got better. In the video of the one with no improvement we can see it going for the primary objective and then getting trapped against the wall, it may not have been properly able to distinguish between walls and doors, which are in the game terms one number from each other (in one of the other videos it went straight for the escape point). In Fig. \ref{fig:DQNMeanQs} we can see that the mean Q values for the agent, after a false start, generally tended upwards but in a very loose pattern.
+%Double Q had the most rapid improvement, although it also ossilated slighly up and down, but less violently than any of the others. Perhaps the prioritised replay emboldened it into making silly decisions when they were both together, as along it seemed to have less ossilations. This maybe because as double Q is designed not to overestimate actions it was able to more quickly learn what it needed to do. In the video of the Double Q agent we can see that it killed the enemy in the engine room before collecting the primary objective, whereas the more basic agent ignored/avoided it (whether it had not worked out what the gun did or decided not to waste a point in killing it is hard to tell). From the mean Q values in Fig. \ref{fig:DQNMeanQs} we can see that there was not too much of a pattern, except that they fell for the first few rounds.
+%Prioritised replay seemed to fall into two patterns of graph, the ones such as the one in Fig. \ref{fig:DQNRewardsOverTime} where it learned to get the reward fairly quickly and others where it did not appear to learn anything for quite a while and then cottened onto the fact that it needed to pick up the rewards. Out of all of the graphs it had the most violent downturn away from the reward, before getting back on track and fairly tightly following its minimum point. In the video we can see the agent fairly confidently grabbing the primary objective, but then it goes all wrong with the agent repeatedly slamming itself against the wall near the enemy. It maybe that it had not worked out about its gun and just knew to get out of the enemy's way rather than lose a point. In Fig. \ref{fig:DQNMeanQs} we can see that prioritised replay had the most tightly clustered Mean Q values, but apart from them trending down for the first few episodes they appear fairly randomly distributed.
+%For both improvements together we can see that its rewards improved the slowest, it appeared to ossilate the most from the curve but more gently than Prioritised Replay's or no improvement's. Perhaps showing the caution of prioritised Replay from some of its training session, but when it does learn something new not wildly swinging around as the Double Q side tempers it. In the video we can see that it started in the corridor above the engine room and made a beeline straight for the extraction point (leaving on a reward of 10, while all the other videos finished on -51). We can see that it had figured out that the exit point was directly at the top. However in the video Both2 we can see the agent in the engine room, killing the enemy, completing the objective and then jamming itself in the corner, so while it may have figured out the compass figures it does not seem to have figured out the difference between walls and doors (a door was very close to it, but led to a deadend, it may not have picked up how to navigate the ship, as the main entrance to the engine room is the only entrance and outside of the engine room it is relatively easy to work your way around to the exit point). In Fig. \ref{fig:DQNMeanQs} we can see that having both improvements meant that the mean Q values more or less followed the same loose pattern as the one with no improvements (possibly for this graph the two improvements were able to cancel each other out).
+
+All of the rewards over time averages are below 0, so we may not have been generous enough with the reward amounts. We took off one point per step, ten points off for hitting a trap or being hit by an enemy, we gave a hundred points for the primary object and fifty points for the secondary objective.
+
+The basic DQN in RLLib learns a bit more slowly than Double DQN and Priority Replay and after 100 episodes starts to occilate up and down. Its video is rather simple as it immediately slides over to the secondary objective. Eventually, after seven thousand episodes DQN seems to have mostly learned not to simply stay still and time itself out.
+
+From Fig. \ref{fig:DQNRewardsOverTimeRaw} we can see that there may have been an issue with the raw implementation of Prioritised Replay, however it could have been that we trained it for too long as it was nearly at the level that Double DQN and plain DQN were converging to, so it may have been a case of catestrophic forgetting where because it is trained on what went wrong with its predictions more cases where it got lost were presented than how it wins the game. Although from Fig. \ref{fig:rewardsDetailedRaw} we can see that DQN and Double Q generally learn not to do really silly things, but prioritised replay does not seem to forget this lesson. In the video we can see that it traps itself in a small room, ignoring the corridor next to it. In RLLib's implementation we can see that prioritised replay has the same sort of boost that Double DQN has, but not as strong, but converges in the same sort of area as the others.
+
+Double DQN in its first run actually managed to collect both objectives (highlighting an issue with the compass (now fixed)) in one episode. We can see in both our implementation Fig. \ref{fig:DQNRewardsOverTimeRaw} and RLLib's implementation Fig. \ref{fig:DQNRewardsOverTime} that Double DQN has a head start on DQN, but then both roughly converge at the same value (-30 in RLLib and -80 for ours). In the video we can see that Double DQN very quickly navigates around to the secondary objective (we had attempted setting the environment to not allow collecting the secondary objective without the first objective, but then settled for upping the reward amounts, it may be a further experiment to see if the agents can learn what to do in that scenario).
+
+For DQN with both improvements it seems to give it a disadvantage out in learning at first in RLLib's version, but then it converges to the same values as the other algorithms. In our version both improvements give a significant disadvantage. At first it seems to learn something, but then forgets it. In the detailed graph we can see that it has far fewer positive experiences than the others, and too many episodes at -200 or less. In the video it charges straight into a wall and stays there, so it may not have learnt to navigate around walls.
 
 \section{Apply the RL algorithm of your choice (from rllib) to one of the Atari Learning Environment. Briefly present the algorithm and justify your choice}
 In this section we chose to use the Evolutions Strategies algorithm and applied it onto the Space Invaders environment. Evolution Strategies is rather different to the Deep Q Network, in Deep Q Networks we have a neural network and after each episode of playing the game we will use gradient descent to adjust the weights of the neural network to try to improve the same network in the next episode of playing the game (roughtly inspired by the idea of how a brain learns). In Evolution Strategies, "a population of parameter vectors is peturbed and their objective function is evaluated. The highest scoring parameter vectors are then recombined to form the population for the next generation" \citep{salimans_evolution_2017}. Or in orther words it builds a series of random neural networks based on the prior generation (or a random seed for the first run) and the best one is then used to spawn another generation until the overall optimisation algorithm descides that it cannot get any better (taking its inspiration from evolution by natural selection).
@@ -269,7 +296,45 @@ In \citep{salimans_evolution_2017}[p. 12] the author achieved an average reward 
 \bibliography{MyLibrary}
 
 \section{Appendix}
+% Basic notebooks
+\includepdf[
+	%% Include all pages of the PDF
+	pages=-,
+%% make this page have the usual page style
+    %% (you can change it to plain etc). By default pdfpages
+    %% sets the pagecommand to \pagestyle{empty}
+	%pagecommand={\pagestyle{headings}}]
+]{basic_task.pdf}
+
+\includepdf[
+	%% Include all pages of the PDF
+	pages=-,
+%% make this page have the usual page style
+    %% (you can change it to plain etc). By default pdfpages
+    %% sets the pagecommand to \pagestyle{empty}
+	%pagecommand={\pagestyle{headings}}]
+]{basic_task_data.pdf}
+
 % TODO DQN notebook
+
+\includepdf[
+	%% Include all pages of the PDF
+	pages=-,
+%% make this page have the usual page style
+    %% (you can change it to plain etc). By default pdfpages
+    %% sets the pagecommand to \pagestyle{empty}
+	%pagecommand={\pagestyle{headings}}]
+]{DQN_with_two_improvements.pdf}
+
+%DQN_with_two_improvements_no_rllib.pdf
+\includepdf[
+	%% Include all pages of the PDF
+	pages=-,
+%% make this page have the usual page style
+    %% (you can change it to plain etc). By default pdfpages
+    %% sets the pagecommand to \pagestyle{empty}
+	%pagecommand={\pagestyle{headings}}]
+]{DQN_with_two_improvements_no_rllib.pdf}
 
 % Include Atari notebook
 % this is from https://tex.stackexchange.com/questions/289385/workflow-for-including-jupyter-aka-ipython-notebooks-as-pages-in-a-latex-docum
