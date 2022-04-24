@@ -296,6 +296,15 @@ For a computer game such as this there is no regulatory need to provide the reas
 In \citep{salimans_evolution_2017}[p. 12] the author achieved an average reward of 678.5 in one hour, compared to our best of 458.5 in 30 hours. However, as the authors use 720 CPUs compared to our 6, then assuming that our CPUs are comparable we would need to run for 3600 hours to hit the same sort of ballpark of processing time (about 5 months). The best human (Jon Tannahill) scored 218,870 points at Space Invaders \citep{day_beating_2018}, with the best AI scoring 154,380 (GDI-H3) \citep{papers_with_code_papers_nodate}, so ES has a long way to go before it can get there, but its only score is from an hour's training (with the 720 CPUs). Unfortunately, you would need a lot of money to power a cluster like that to see if ES could better its score.
 
 \section{Implementation of PPO or SAC}
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics{img/SAC.png}
+		\caption{SAC's Rewards}
+		\label{fig:SAC}
+	\end{center}
+\end{figure}
+
+Here we look at implementing Soft Actor Critic on our custom environment. Soft Actor Critic is similar to DQN, but rather than using a random number to determine whether to explore or exploit it uses another neural network to give a number and then that can be used. In Fig. \ref{fig:SAC} we can see that its mean rewards jumped around a bit as the agent was figuring things out. The theory behind it is good, as in DQN we have a random number generator determining whether or not to follow the model, whereas in SAC another neural network learns whether it is a good idea to follow the network or not. "SAC avoids the complexity and potential instability associated with approximate inference in prior off-policy algorithms based on Q-learning" \citep[p. 2]{haarnoja_soft_2018}. Once you account for some strangeness in how the algorithm is written it was relatively straightforward to implement.
 
 \section{Summary of contribution}
 100\% me, with some code inspired by external sources (noted on the line, function or cell as relevant).
@@ -304,58 +313,6 @@ In \citep{salimans_evolution_2017}[p. 12] the author achieved an average reward 
 \bibliography{MyLibrary}
 
 \section{Appendix}
-% Basic notebooks
-\includepdf[
-	%% Include all pages of the PDF
-	pages=-,
-%% make this page have the usual page style
-    %% (you can change it to plain etc). By default pdfpages
-    %% sets the pagecommand to \pagestyle{empty}
-	%pagecommand={\pagestyle{headings}}]
-]{basic_task.pdf}
-
-\includepdf[
-	%% Include all pages of the PDF
-	pages=-,
-%% make this page have the usual page style
-    %% (you can change it to plain etc). By default pdfpages
-    %% sets the pagecommand to \pagestyle{empty}
-	%pagecommand={\pagestyle{headings}}]
-]{basic_task_data.pdf}
-
-% TODO DQN notebook
-
-\includepdf[
-	%% Include all pages of the PDF
-	pages=-,
-%% make this page have the usual page style
-    %% (you can change it to plain etc). By default pdfpages
-    %% sets the pagecommand to \pagestyle{empty}
-	%pagecommand={\pagestyle{headings}}]
-]{DQN_with_two_improvements.pdf}
-
-%DQN_with_two_improvements_no_rllib.pdf
-\includepdf[
-	%% Include all pages of the PDF
-	pages=-,
-%% make this page have the usual page style
-    %% (you can change it to plain etc). By default pdfpages
-    %% sets the pagecommand to \pagestyle{empty}
-	%pagecommand={\pagestyle{headings}}]
-]{DQN_with_two_improvements_no_rllib.pdf}
-
-% Include Atari notebook
-% this is from https://tex.stackexchange.com/questions/289385/workflow-for-including-jupyter-aka-ipython-notebooks-as-pages-in-a-latex-docum
-\includepdf[
-	%% Include all pages of the PDF
-	pages=-,
-%% make this page have the usual page style
-    %% (you can change it to plain etc). By default pdfpages
-    %% sets the pagecommand to \pagestyle{empty}
-	%pagecommand={\pagestyle{headings}}]
-]{atari_spaceinvaders.pdf}
-
-% TODO SAC notebook
 
 % code files
 %\lstinputlisting[language=python]{helpers/__init__.py}
