@@ -140,6 +140,16 @@ class AdvancedMap():
                 if not np.isnan(rew):
                     ret['immediate_reward'] += rew
                 if val_new_cell == 4: #val_key[val_new_cell]['reward'] == 30:
+                    #primary_obj = np.argwhere(self.map == 3)
+                    ## only allow escape if primary objective claimed
+                    '''if len(primary_obj) <= 0:
+                        # remove the reward point from the map so that it cannot be claimed again
+                        self.old_agent_value = 0.
+                        # as this is the escape point flag that we should end the session
+                        ret['is_stop'] = True
+                    else:
+                        # remove the reward
+                        ret['immediate_reward'] -= rew'''
                     # remove the reward point from the map so that it cannot be claimed again
                     self.old_agent_value = 0.
                     # as this is the escape point flag that we should end the session

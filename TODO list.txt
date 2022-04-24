@@ -6,9 +6,12 @@ rerun rllib notebook for DQN - done
 code for getting videos of the new agents for part 8 - done
 change graphs and corresponding writeup for part 8 - done
 
-issue with priority replay, switch to dueling?
-mean Q, calculate a sliding window of 100
-secondary objective, disallow until primary achieved?
+fix priority replay - done
+mean Q, calculate a sliding window of 100 - done
+secondary objective, disallow until primary achieved? - forget that idea
+compare to simple Q -done
+update writeup -done
+merge code - done
 
 merge repositories and commit - done
 
@@ -23,7 +26,7 @@ update writeup for atari - done
 
 commit - done
 
-spellcheck & proofread
+spellcheck & proofread - done
 
 get code as plain text and add to end of report - done
 https://tex.stackexchange.com/questions/72899/inserting-code-in-multiple-pages-as-an-appendix
@@ -39,7 +42,7 @@ report abstract - done
 
 submit coursework
 
-relook through parts 1-6
+relook through parts 1-6, make video of it
 
 Get relevant graphs, videos, text, etc. into powerpoint
 
